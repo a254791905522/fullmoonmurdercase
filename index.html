@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moon Murder Case — Hidden Object Mystery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            background:
+                radial-gradient(ellipse 90% 55% at 50% 0%, rgba(120, 140, 200, 0.18) 0%, transparent 52%),
+                radial-gradient(ellipse 70% 50% at 85% 70%, rgba(80, 40, 90, 0.22) 0%, transparent 45%),
+                radial-gradient(ellipse 55% 40% at 10% 60%, rgba(30, 50, 90, 0.35) 0%, transparent 50%),
+                linear-gradient(172deg, #050810 0%, #0a0e1a 35%, #06040c 100%);
+            color: #c5c9d8;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .moon-halo {
+            position: fixed;
+            width: min(120vw, 900px);
+            height: min(120vw, 900px);
+            border-radius: 50%;
+            top: -35%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle at 50% 55%,
+                    rgba(255, 250, 235, 0.14) 0%,
+                    rgba(200, 210, 240, 0.06) 28%,
+                    transparent 58%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .fog {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(8, 10, 22, 0.5) 85%, rgba(4, 4, 12, 0.85) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 12% 18%, rgba(255, 255, 255, 0.45) 0%, transparent 100%),
+                radial-gradient(1px 1px at 78% 12%, rgba(255, 255, 255, 0.35) 0%, transparent 100%),
+                radial-gradient(1px 1px at 44% 8%, rgba(255, 255, 255, 0.25) 0%, transparent 100%),
+                radial-gradient(1px 1px at 90% 35%, rgba(255, 255, 255, 0.3) 0%, transparent 100%),
+                radial-gradient(1px 1px at 6% 42%, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 640px;
+            width: 100%;
+            background: linear-gradient(160deg, rgba(18, 16, 32, 0.92) 0%, rgba(8, 8, 18, 0.96) 100%);
+            border: 1px solid rgba(140, 150, 200, 0.28);
+            border-radius: 22px;
+            padding: 42px 38px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+                0 28px 64px rgba(0, 0, 0, 0.55),
+                0 0 80px rgba(60, 80, 140, 0.12);
+        }
+
+        .icon-wrap {
+            width: 108px;
+            height: 108px;
+            margin: 0 auto 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            background: linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 55%, #080810 100%);
+            border: 1px solid rgba(180, 190, 230, 0.25);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(100, 120, 200, 0.15);
+        }
+
+        .icon-wrap svg {
+            width: 72px;
+            height: 72px;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+        }
+
+        h1 {
+            font-size: 1.95rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+            color: #f0f2f8;
+        }
+
+        h1 span.accent {
+            background: linear-gradient(95deg, #e8dcc8, #a8b8e8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #8b93b8;
+            margin-bottom: 22px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 9px;
+            margin-bottom: 24px;
+        }
+
+        .chip {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 7px 13px;
+            border-radius: 999px;
+            background: rgba(60, 70, 120, 0.25);
+            color: #aeb8d8;
+            border: 1px solid rgba(120, 130, 180, 0.35);
+        }
+
+        .chip.moon {
+            background: rgba(200, 190, 160, 0.12);
+            color: #d8d0c0;
+            border-color: rgba(220, 210, 180, 0.28);
+        }
+
+        .lead {
+            text-align: left;
+            color: #9aa3b8;
+            line-height: 1.78;
+            font-size: 1.02rem;
+            margin-bottom: 24px;
+        }
+
+        .lead strong {
+            color: #e8eaf4;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .feature-card {
+            background: rgba(6, 8, 20, 0.72);
+            border: 1px solid rgba(90, 100, 150, 0.22);
+            border-radius: 14px;
+            padding: 15px 15px 14px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(180, 160, 220, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .feature-card h3 {
+            font-size: 0.8rem;
+            color: #d4c8b0;
+            margin-bottom: 7px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            font-size: 0.84rem;
+            color: #7a8498;
+            line-height: 1.52;
+        }
+
+        .cta {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 15px 34px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #0a0814;
+            text-decoration: none;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #e8e4f0 0%, #9aa4c8 100%);
+            box-shadow: 0 8px 24px rgba(80, 90, 140, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(120, 130, 180, 0.45);
+        }
+
+        .foot {
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(80, 90, 130, 0.25);
+            font-size: 0.86rem;
+            color: #5c6478;
+        }
+
+        .foot a {
+            color: #9aa4c0;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .foot a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 560px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.58rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="moon-halo" aria-hidden="true"></div>
+    <div class="stars" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="fog" aria-hidden="true"></div>
+
+    <div class="container">
+        <div class="icon-wrap" aria-hidden="true">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="32" cy="32" r="22" fill="#1c1c28" stroke="#5a6080" stroke-width="1"/>
+                <circle cx="34" cy="30" r="18" fill="#e8e4dc" opacity="0.95"/>
+                <ellipse cx="26" cy="28" rx="8" ry="18" fill="#1a1a24" opacity="0.35"/>
+                <circle cx="32" cy="32" r="3" fill="#3a3550" opacity="0.4"/>
+                <path d="M18 48 Q32 38 46 48" stroke="#6a6088" stroke-width="1.2" fill="none" opacity="0.5"/>
+            </svg>
+        </div>
+
+        <h1>Moon Murder Case <span class="accent">Hidden Object</span></h1>
+        <p class="tagline">Hidden clues · mystery game</p>
+
+        <div class="chips">
+            <span class="chip moon">Free</span>
+            <span class="chip">iOS 15+</span>
+            <span class="chip">iPhone &amp; iPad</span>
+            <span class="chip moon">Puzzle</span>
+        </div>
+
+        <p class="lead">
+            <strong>Step into a chilling mystery</strong> filled with hidden clues, dark secrets, and puzzles. In <em>Moon Murder Case: Hidden Object</em>, every shadow may hide evidence and every detail could break the case. Explore richly drawn scenes, find hidden objects, and stitch together a tense murder mystery—from unsettling mansions to eerie locations built for observation and deduction.
+        </p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Hidden object hunts</h3>
+                <p>Search carefully layered environments where small items matter. Clear objectives keep each scene focused and satisfying to complete.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Atmospheric scenes</h3>
+                <p>Detailed artwork and moody lighting set the tone for a noir-style investigation under moonlight and doubt.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Clues &amp; puzzles</h3>
+                <p>Combine observation with light puzzle moments so progress feels like real detective work, not random tapping.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Many mysteries</h3>
+                <p>Multiple locations and cases to work through—ideal for casual sessions or longer puzzle marathons.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Smooth controls</h3>
+                <p>Touch controls tuned for hidden object play: precise selection, readable UI, and a steady pace on phone or tablet.</p>
+            </div>
+            <div class="feature-card">
+                <h3>For puzzle fans</h3>
+                <p>Built for players who enjoy mystery, scavenger-style lists, and the quiet thrill of spotting what others miss.</p>
+            </div>
+        </div>
+
+        <a href="https://apps.apple.com/us/app/moon-murder-case-hidden-object/id1031844310?uo=4" class="cta" target="_blank" rel="noopener noreferrer">Get it on the App Store</a>
+
+        <div class="foot">
+            <a href="privacy.html">Privacy overview</a>
+        </div>
+    </div>
+</body>
+
+</html>

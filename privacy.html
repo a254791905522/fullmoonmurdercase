@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy — Moon Murder Case</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            background: #04050c;
+            color: #a8b0c4;
+            line-height: 1.68;
+        }
+
+        .bg {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% -5%, rgba(200, 195, 255, 0.08) 0%, transparent 42%),
+                radial-gradient(ellipse 100% 60% at 50% 100%, rgba(40, 30, 70, 0.45) 0%, transparent 55%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            opacity: 0.035;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.06) 2px, rgba(255, 255, 255, 0.06) 3px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 40px 20px 56px;
+        }
+
+        .file-header {
+            border: 2px solid rgba(140, 130, 180, 0.45);
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            padding: 14px 18px 12px;
+            background: rgba(12, 12, 24, 0.92);
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: #8a7aa8;
+        }
+
+        .file-body {
+            border: 2px solid rgba(140, 130, 180, 0.45);
+            border-top: 1px solid rgba(100, 90, 130, 0.35);
+            border-radius: 0 0 4px 4px;
+            padding: 28px 22px 26px;
+            background: rgba(8, 8, 18, 0.94);
+            margin-bottom: 22px;
+        }
+
+        .file-body h1 {
+            font-size: 1.42rem;
+            font-weight: 800;
+            color: #eef0f8;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+        }
+
+        .file-meta {
+            font-size: 0.8rem;
+            color: #6a7088;
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px dashed rgba(90, 95, 120, 0.4);
+        }
+
+        article {
+            margin-bottom: 22px;
+        }
+
+        article:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .exhibit {
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #c4b89c;
+            margin-bottom: 6px;
+        }
+
+        article h2 {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: #dce0f0;
+            margin-bottom: 8px;
+        }
+
+        article p {
+            font-size: 0.93rem;
+            color: #8e96ac;
+        }
+
+        .notice {
+            margin-top: 24px;
+            padding: 14px 16px;
+            border-left: 3px solid rgba(180, 160, 220, 0.55);
+            background: rgba(20, 18, 40, 0.6);
+            font-size: 0.86rem;
+            color: #7a8094;
+        }
+
+        nav {
+            text-align: center;
+            margin-top: 28px;
+        }
+
+        nav a {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #c8c4dc;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(200, 190, 230, 0.35);
+            padding-bottom: 2px;
+        }
+
+        nav a:hover {
+            color: #fff;
+            border-bottom-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <main>
+        <div class="file-header">Supplemental disclosure · mobile title</div>
+        <div class="file-body">
+            <h1>Privacy statement</h1>
+            <p class="file-meta">Applies to the App Store edition of <strong style="color:#b8bdd0;">Moon Murder Case: Hidden Object</strong>. This text is a plain-language companion to platform labeling and does not replace Apple’s terms or your local regulations.</p>
+
+            <article>
+                <p class="exhibit">Exhibit A</p>
+                <h2>What this game is</h2>
+                <p>A single-player hidden object and mystery puzzle experience. There is no social feed, chat, or user-generated content layer inside the product described here.</p>
+            </article>
+
+            <article>
+                <p class="exhibit">Exhibit B</p>
+                <h2>Information the app processes</h2>
+                <p>According to the current App Store “App Privacy” summary for this title, no data is collected from the app for the developer’s own databases. If Apple’s label changes after an update, rely on the App Store listing as the up-to-date summary.</p>
+            </article>
+
+            <article>
+                <p class="exhibit">Exhibit C</p>
+                <h2>Advertising &amp; analytics</h2>
+                <p>The age and content notice on the store listing indicates advertising may appear. Ad-related identifiers or measurement, when present, are governed by Apple’s own frameworks (such as App Tracking Transparency and SKAdNetwork) and your device settings—not by a separate account you create inside the game.</p>
+            </article>
+
+            <article>
+                <p class="exhibit">Exhibit D</p>
+                <h2>Apple services</h2>
+                <p>Installation, updates, optional Game Center features, and any system crash reports you allow are handled under Apple’s policies and your Apple ID controls. Those flows are outside this app’s standalone privacy design.</p>
+            </article>
+
+            <article>
+                <p class="exhibit">Exhibit E</p>
+                <h2>Data on your device</h2>
+                <p>Gameplay progress, scores, or similar state may be stored locally so you can resume. Deleting the app or clearing its storage from system settings removes that local information from the device.</p>
+            </article>
+
+            <article>
+                <p class="exhibit">Exhibit F</p>
+                <h2>Children &amp; guardians</h2>
+                <p>The title is rated for a broad audience. Parents and guardians can use Screen Time and App Store parental controls to manage installs, purchases, and privacy choices on shared hardware.</p>
+            </article>
+
+            <article>
+                <p class="exhibit">Exhibit G</p>
+                <h2>Changes</h2>
+                <p>If features or platform requirements shift in a material way, this page may be revised so it still reflects how the product is meant to behave.</p>
+            </article>
+
+            <p class="notice">For statutory privacy rights that apply where you live, use Apple’s account and device tools together with removing the app from devices you control.</p>
+        </div>
+
+        <nav>
+            <a href="index.html">Return to game overview</a>
+        </nav>
+    </main>
+</body>
+
+</html>
